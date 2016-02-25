@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 import voole.example.com.myapplication.R;
@@ -33,16 +34,27 @@ public class PlayerActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String url = intent.getStringExtra("url");
 
-//        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //initButton
+        ImageButton button = (ImageButton) findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+////        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 //        ActionBar actionBar = getSupportActionBar();
 //
 //        AndroidMediaController androidMediaController = new AndroidMediaController(this, false);
 //        androidMediaController.setSupportActionBar(actionBar);
-        ActionBar actionBar = getSupportActionBar();
+//        ActionBar actionBar = getSupportActionBar();
         mMediaController = new AndroidMediaController(this, false);
-        mMediaController.setSupportActionBar(actionBar);
+        mMediaController.setSupportBackPressed(button);
+//        mMediaController.setSupportActionBar(actionBar);
+
 
         // init player
         IjkMediaPlayer.loadLibrariesOnce(null);

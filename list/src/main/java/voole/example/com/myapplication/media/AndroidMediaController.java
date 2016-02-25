@@ -23,6 +23,7 @@ import android.support.v7.app.ActionBar;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.MediaController;
 import android.widget.SeekBar;
 
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 
 public class AndroidMediaController extends MediaController implements IMediaController {
     private ActionBar mActionBar;
+    private ImageButton mButton;
     private  Context mContext;
     private Field mRoot;
 
@@ -42,11 +44,13 @@ public class AndroidMediaController extends MediaController implements IMediaCon
 
     public AndroidMediaController(Context context, boolean useFastForward) {
         super(context, useFastForward);
+        this.mContext =context;
         initView(context);
     }
 
     public AndroidMediaController(Context context) {
         super(context);
+        this.mContext =context;
         initView(context);
     }
 
@@ -96,12 +100,22 @@ public class AndroidMediaController extends MediaController implements IMediaCon
             actionBar.hide();
         }
     }
+    public void setSupportBackPressed(@Nullable ImageButton imageButton){
+        mButton = imageButton;
+        if(isShowing()){
+           imageButton.setVisibility(VISIBLE);
+        }else{
+            imageButton.setVisibility(INVISIBLE);
+        }
+    }
 
     @Override
     public void show() {
         super.show();
         if (mActionBar != null)
             mActionBar.show();
+        if (mButton != null)
+            mButton.setVisibility(VISIBLE);
     }
 
     @Override
@@ -109,6 +123,8 @@ public class AndroidMediaController extends MediaController implements IMediaCon
         super.hide();
         if (mActionBar != null)
             mActionBar.hide();
+        if (mButton != null)
+            mButton.setVisibility(INVISIBLE);
         for (View view : mShowOnceArray)
             view.setVisibility(View.GONE);
         mShowOnceArray.clear();;

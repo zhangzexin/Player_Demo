@@ -1,5 +1,6 @@
 package voole.example.com.myapplication.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -34,11 +35,14 @@ import voole.example.com.myapplication.adapter.newAdapter;
 public class MainActivity extends AppCompatActivity implements AbsListView.OnScrollListener {
     String url = "http://pl3.live.panda.tv/live_panda/";
     int pageno = 1;
-    ArrayList<liveData> arrayList = new ArrayList<liveData>();
+    ArrayList<liveData> arrayList = new ArrayList();
     Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what){
+                case 0:
+                    Toast.makeText(MainActivity.this,(String)msg.obj,Toast.LENGTH_LONG).show();
+                    break;
                 case 1:
                     ArrayList<liveData> arrayList = (ArrayList<liveData>) msg.obj;
                     adapter = new newAdapter(MainActivity.this, arrayList);
@@ -135,11 +139,19 @@ public class MainActivity extends AppCompatActivity implements AbsListView.OnScr
                         pageno++;
                         handler.sendMessage(message);
                     } catch (JSONException e) {
-                        Toast.makeText(MainActivity.this,"解析出错",Toast.LENGTH_LONG).show();
+                        Message message = new Message();
+                        message.what = 0;
+                        message.obj = "解析出错";
+                        handler.sendMessage(message);
+//                        Toast.makeText(MainActivity.this,"解析出错",Toast.LENGTH_LONG).show();
                         e.printStackTrace();
                     }
                 } catch (IOException e) {
-                    Toast.makeText(MainActivity.this,"服务器繁忙，请稍后再试",Toast.LENGTH_LONG).show();
+                    Message message = new Message();
+                    message.what = 0;
+                    message.obj = "服务器繁忙，请稍后再试";
+                    handler.sendMessage(message);
+
                     e.printStackTrace();
                 }
 
