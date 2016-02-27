@@ -3,7 +3,7 @@
     <string name="action_settings">Settings</string>
 
     <!--<string name="app_name">ijkmediademo</string>-->
-
+    <string name="title_activity_slidingupgridview">Sliding up effect with GridView</string>
     <string name="N_A">N/A</string>
     <string name="close">Close</string>
     <string name="exit">Exit</string>

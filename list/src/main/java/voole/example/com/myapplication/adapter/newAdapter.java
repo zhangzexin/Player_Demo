@@ -67,10 +67,11 @@ public class newAdapter extends BaseAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context,PlayerActivity.class);
+//                Intent intent = new Intent(context,PlayerActivity.class);
                 String flv = item.getFlv();
-                intent.putExtra("url",url+flv+".flv?sign=sign&time=ts");
-                context.startActivity(intent);
+//                intent.putExtra("url",url+flv+".flv?sign=sign&time=ts");
+                PlayerActivity.intentTo(context,url+flv+".flv?sign=sign&time=ts");
+//                context.startActivity(intent);
                 Log.d("Adapter","点几了第"+position);
             }
         });

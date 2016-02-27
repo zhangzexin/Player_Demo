@@ -1,6 +1,7 @@
 package voole.example.com.myapplication.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -23,6 +24,16 @@ public class PlayerActivity extends AppCompatActivity {
     private IjkVideoView mVideoView;
     private boolean mBackPressed;
     private AndroidMediaController mMediaController;
+
+    public static Intent newIntent(Context context,String url){
+        Intent intent = new Intent(context, PlayerActivity.class);
+        intent.putExtra("url",url);
+        return intent;
+    }
+
+    public static void intentTo(Context context, String Url){
+        context.startActivity(newIntent(context,Url));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
